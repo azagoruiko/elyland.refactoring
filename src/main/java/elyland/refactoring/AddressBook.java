@@ -54,9 +54,9 @@ public class AddressBook {
     /**
      * Returns all people who have mobile phone numbers.
      */
-    public List<Person> getList() {
-        List people = db.getAll();
-        final List filteredList = new LinkedList();
+    public List<Person> getMobileList() {
+        List<Person> people = db.getAll();
+        final List<Person> filteredList = new LinkedList<>();
         people.forEach(new Consumer<Person>() {
 
             public void accept(Person t) {
