@@ -54,7 +54,7 @@ public class AddressDb {
                 Person person = new Person(foundName, phoneNumber);
                 return person;
             } else {
-                return new Person("", null);
+                return null;
             }
 
         } catch (SQLException e) {
