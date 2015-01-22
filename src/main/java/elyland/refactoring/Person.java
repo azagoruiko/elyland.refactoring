@@ -1,5 +1,8 @@
 package elyland.refactoring;
 
+/**
+ * Person entity class
+ */
 public class Person {
 
     private String name;
