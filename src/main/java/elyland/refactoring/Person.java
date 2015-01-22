@@ -3,28 +3,29 @@ package elyland.refactoring;
 import java.util.Date;
 
 public class Person {
-	private String NAME;
-	private PhoneNumber phoneNumber;
-	private Date date;
-	
-	public Person(String name, PhoneNumber phoneNumber) {
-		this.NAME = name;
-	}
 
-	public String getName() {
-		return NAME;
-	}
+    private String NAME;
+    private PhoneNumber phoneNumber;
+    private Date date;
 
-	public void setName(String name) {
-		name = name;
-	}
+    public Person(String name, PhoneNumber phoneNumber) {
+        this.NAME = name;
+    }
 
-	public PhoneNumber getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getName() {
+        return NAME;
+    }
 
-	public void setPhoneNumber(PhoneNumber phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setName(String name) {
+        name = name;
+    }
+
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
 }
