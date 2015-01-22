@@ -1,12 +1,9 @@
 package elyland.refactoring;
 
-import java.util.Date;
-
 public class Person {
 
     private String name;
     private PhoneNumber phoneNumber;
-    private Date date;
 
     public Person(String name, PhoneNumber phoneNumber) {
         this.name = name;
