@@ -10,12 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AddressDb {
+    
+    Connection connection;
+
+    public AddressDb(Connection connection) {
+        this.connection = connection;
+    }
 
     public void addPerson(Person person) {
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@prod", "admin", "beefhead");
             statement = connection.prepareStatement("insert into AddressEntry values (?, ?, ?)");
             statement.setLong(1, System.currentTimeMillis());
             statement.setString(2, person.getName());
@@ -27,13 +31,6 @@ public class AddressDb {
             if (statement != null) {
                 try {
                     statement.close();
-                } catch (SQLException err) {
-                    throw new RuntimeException(err);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
                 } catch (SQLException err) {
                     throw new RuntimeException(err);
                 }
@@ -68,11 +65,9 @@ public class AddressDb {
     }
 
     public List<Person> getAll() {
-        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet result = null;
         try {
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@prod", "admin", "beefhead");
             statement = connection.prepareStatement("select * from AddressEntry");
 
             HashSet set = new HashSet();
@@ -100,13 +95,6 @@ public class AddressDb {
             if (statement != null) {
                 try {
                     statement.close();
-                } catch (SQLException err) {
-                    throw new RuntimeException(err);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
                 } catch (SQLException err) {
                     throw new RuntimeException(err);
                 }
