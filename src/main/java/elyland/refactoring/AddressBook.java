@@ -37,9 +37,9 @@ public class AddressBook {
     /**
      * Returns all names in the book truncated to the given length.
      */
-    public List getNames(int maxLength) {
+    public List<String> getNames(int maxLength) {
         List<Person> people = db.getAll();
-        List names = new LinkedList<String>();
+        List<String> names = new LinkedList<>();
         for (Person person : people) {
             String name = person.getName();
             if (name.length() > maxLength) {
@@ -66,5 +66,11 @@ public class AddressBook {
         });
         
         return filteredList;
+    }
+    
+    public Person addPerson(String name, String phoneNumber) {
+        Person p = new Person(name, new PhoneNumber(phoneNumber));
+        db.addPerson(p);
+        return p;
     }
 }
