@@ -1,9 +1,8 @@
 package elyland.refactoring;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class AddressBook {
     
@@ -30,8 +29,9 @@ public class AddressBook {
      */
     public String getMobile(String name) {
         Person person = db.findPerson(name);
+        if (person == null) return null;
         PhoneNumber phone = person.getPhoneNumber();
-        return phone.getNumber();
+        return phone != null && phone.isMobile() ? phone.getNumber() : null;
     }
 
     /**
@@ -47,8 +47,6 @@ public class AddressBook {
             }
             names.add(name);
         }
-        String oldName = "";
-        oldName = oldName + names;
         return names;
 
     }
@@ -56,16 +54,17 @@ public class AddressBook {
     /**
      * Returns all people who have mobile phone numbers.
      */
-    public List getList() {
+    public List<Person> getList() {
         List people = db.getAll();
-        Collection f = new LinkedList();
-        for (Object person : people) {
-            if (((Person) person).getPhoneNumber().getNumber().startsWith("070")) {
-                if (people != null) {
-                    f.add(person);
-                }
+        final List filteredList = new LinkedList();
+        people.forEach(new Consumer<Person>() {
+
+            public void accept(Person t) {
+                if (t.hasMobile())
+                    filteredList.add(t);
             }
-        }
-        return (LinkedList) f;
+        });
+        
+        return filteredList;
     }
 }
