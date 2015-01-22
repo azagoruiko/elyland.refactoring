@@ -4,7 +4,6 @@ package elyland.refactoring;
  * Person entity class
  */
 public class Person {
-
     private String name;
     private PhoneNumber phoneNumber;
 
@@ -28,4 +27,8 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
+    public boolean hasMobile() {
+        if (phoneNumber == null) return false;
+        return phoneNumber.isMobile();
+    }
 }
