@@ -9,6 +9,7 @@ public class Person {
 
     public Person(String name, PhoneNumber phoneNumber) {
         this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
