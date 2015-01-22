@@ -6,9 +6,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AddressBook {
+    
+    AddressDb db;
+
+    public AddressBook(AddressDb db) {
+        this.db = db;
+    }
 
     public boolean hasMobile(String name) {
-        if (new AddressDb().findPerson(name).getPhoneNumber().getNumber().startsWith("070")) {
+        if (db.findPerson(name).getPhoneNumber().getNumber().startsWith("070")) {
             return true;
         } else {
             return false;
@@ -20,7 +26,6 @@ public class AddressBook {
     }
 
     public int getSize() {
-        AddressDb db = new AddressDb();
         List<Person> people = db.getAll();
         int count = -1;
         if (count < 0) {
@@ -39,12 +44,8 @@ public class AddressBook {
      * one.
      */
     public String getMobile(String name) {
-        AddressDb db = new AddressDb();
-        db = new AddressDb();
-
         Person person = db.findPerson(name);
         PhoneNumber phone = person.getPhoneNumber();
-        db = new AddressDb();
         return phone.getNumber();
     }
 
@@ -52,7 +53,6 @@ public class AddressBook {
      * Returns all names in the book truncated to the given length.
      */
     public List getNames(int maxLength) {
-        AddressDb db = new AddressDb();
         List<Person> people = db.getAll();
         List names = new LinkedList<String>();
         for (Person person : people) {
@@ -72,7 +72,6 @@ public class AddressBook {
      * Returns all people who have mobile phone numbers.
      */
     public List getList() {
-        AddressDb db = new AddressDb();
         List people = db.getAll();
         Collection f = new LinkedList();
         for (Object person : people) {
