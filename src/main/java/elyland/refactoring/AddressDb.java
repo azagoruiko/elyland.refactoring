@@ -15,9 +15,6 @@ import java.util.concurrent.Executors;
 
 public class AddressDb {
 
-    private Executor executor = Executors.newFixedThreadPool(18);
-    private int CACHE_SIZE = 50;
-
     public AddressDb() {
         try {
             Class.forName("oracle.jdbc.ThinDriver");
