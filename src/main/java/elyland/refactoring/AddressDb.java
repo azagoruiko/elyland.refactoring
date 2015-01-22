@@ -11,15 +11,6 @@ import java.util.List;
 
 public class AddressDb {
 
-    public AddressDb() {
-        try {
-            Class.forName("oracle.jdbc.ThinDriver");
-        } catch (ClassNotFoundException e) {
-        }
-
-        new Thread().start();
-    }
-
     public void addPerson(Person person) {
         Connection connection = null;
         PreparedStatement statement = null;
