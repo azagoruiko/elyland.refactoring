@@ -1,11 +1,9 @@
 package elyland.refactoring;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,15 +40,14 @@ public class AddressDb {
      * Looks up the given person, null if not found.
      */
     public Person findPerson(String name) {
-        PreparedStatement b;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
-            ResultSet c;
-            Connection a = DriverManager.getConnection("jdbc:oracle:thin:@prod", "admin", "beefhead");
-            b = a.prepareStatement("select * from AddressEntry where name = '" + name + "'");
-            c = b.executeQuery();
-            if (c.next()) {
-                String foundName = c.getString("name");
-                PhoneNumber phoneNumber = new PhoneNumber(c.getString("phoneNumber"));
+            stmt = connection.prepareStatement("select * from AddressEntry where name = '" + name + "'");
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                String foundName = rs.getString("name");
+                PhoneNumber phoneNumber = new PhoneNumber(rs.getString("phoneNumber"));
                 Person person = new Person(foundName, phoneNumber);
                 return person;
             } else {
@@ -58,9 +55,22 @@ public class AddressDb {
             }
 
         } catch (SQLException e) {
-            return null;
-        } catch (IllegalArgumentException x) {
-            throw x;
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
@@ -70,8 +80,6 @@ public class AddressDb {
         try {
             statement = connection.prepareStatement("select * from AddressEntry");
 
-            HashSet set = new HashSet();
-
             result = statement.executeQuery();
             List<Person> entries = new LinkedList<Person>();
             while (result.next()) {
@@ -79,7 +87,6 @@ public class AddressDb {
                 PhoneNumber phoneNumber = new PhoneNumber(result.getString("phoneNumber"));
                 Person person = new Person(name, phoneNumber);
                 entries.add(person);
-                set.add(person);
             }
             return entries;
         } catch (SQLException e) {
