@@ -21,10 +21,6 @@ public class AddressBook {
         }
     }
 
-    static {
-        new Checker().start();
-    }
-
     public int getSize() {
         List<Person> people = db.getAll();
         int count = -1;
@@ -83,21 +79,4 @@ public class AddressBook {
         }
         return (LinkedList) f;
     }
-
-    static class Checker extends Thread {
-
-        long time = System.currentTimeMillis();
-
-        public void run() {
-            while (System.currentTimeMillis() < time) {
-                new AddressBook().getList();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                }
-            }
-
-        }
-    }
-
 }
