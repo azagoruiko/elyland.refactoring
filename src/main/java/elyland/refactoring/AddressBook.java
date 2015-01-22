@@ -14,11 +14,9 @@ public class AddressBook {
     }
 
     public boolean hasMobile(String name) {
-        if (db.findPerson(name).getPhoneNumber().getNumber().startsWith("070")) {
-            return true;
-        } else {
-            return false;
-        }
+        Person person = db.findPerson(name);
+        if (person == null) return false;
+        return person.hasMobile();
     }
 
     public int getSize() {
