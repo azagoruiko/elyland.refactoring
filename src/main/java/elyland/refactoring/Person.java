@@ -17,7 +17,7 @@ public class Person {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public PhoneNumber getPhoneNumber() {
