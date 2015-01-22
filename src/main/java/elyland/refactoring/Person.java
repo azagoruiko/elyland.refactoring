@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class Person {
 
-    private String NAME;
+    private String name;
     private PhoneNumber phoneNumber;
     private Date date;
 
     public Person(String name, PhoneNumber phoneNumber) {
-        this.NAME = name;
+        this.name = name;
     }
 
     public String getName() {
-        return NAME;
+        return name;
     }
 
     public void setName(String name) {
