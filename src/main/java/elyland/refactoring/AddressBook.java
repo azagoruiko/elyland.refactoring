@@ -23,16 +23,7 @@ public class AddressBook {
 
     public int getSize() {
         List<Person> people = db.getAll();
-        int count = -1;
-        if (count < 0) {
-            Iterator<Person> n = people.iterator();
-            while (n.hasNext()) {
-                ++count;
-            }
-        }
-
-        return count;
-
+        return people.size();
     }
 
     /**
