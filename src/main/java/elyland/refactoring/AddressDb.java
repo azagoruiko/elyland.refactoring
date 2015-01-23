@@ -18,7 +18,7 @@ public class AddressDb {
     public void addPerson(Person person) {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement("insert into AddressEntry values (?, ?, ?)");
+            statement = connection.prepareStatement("insert into AddressEntry (id, name, phoneNumber) values (?, ?, ?)");
             statement.setLong(1, System.currentTimeMillis());
             statement.setString(2, person.getName());
             statement.setString(3, person.getPhoneNumber().getNumber());
@@ -43,7 +43,8 @@ public class AddressDb {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = connection.prepareStatement("select * from AddressEntry where name = '" + name + "'");
+            stmt = connection.prepareStatement("select name, phoneNumber from AddressEntry where name = ?");
+            stmt.setString(1, name);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 String foundName = rs.getString("name");
@@ -78,7 +79,7 @@ public class AddressDb {
         PreparedStatement statement = null;
         ResultSet result = null;
         try {
-            statement = connection.prepareStatement("select * from AddressEntry");
+            statement = connection.prepareStatement("select name, phoneNumber from AddressEntry");
 
             result = statement.executeQuery();
             List<Person> entries = new LinkedList<Person>();
